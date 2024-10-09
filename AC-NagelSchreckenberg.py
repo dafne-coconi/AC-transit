@@ -1,11 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import random
 
 class Auto:
     """This class
     :param value: rule"""
 
-    def __init__(self, posicion, velocidad, distraccion):
+    def __init__(self, num, posicion, velocidad, distraccion):
+        self.name = f'A{num}'
         self.posicion = posicion
         self.velocidad = list()
         self.distraccion = list()
@@ -36,20 +38,32 @@ class Automata:
     Class Automata
     :param value: rule
     """
-    def __init__(self, vector, numautos, iteraciones, inital_state, tupla_distraccion):
+    def __init__(self, vector, numautos, iteraciones, inital_state, tupla_distraccion, v_max):
         self.name = f'Linear_CA_transito'
         self.vector = vector
         self.numautos = numautos
+        #self.list_autos = [*range(1, self.numautos, 1)]
+        self.list_autos = list()
+        self.pos_autos = list()
         self.iteraciones = iteraciones
         self.estados = 2
         self.matrix_CA = np.array([])
         self.inital_state = inital_state
         self.tupla_distraccion = tupla_distraccion
+        self.v_max = v_max
 
     def create_CA(self):
         # Create matrix for CA with a single cell at the middle
-        
         self.matrix_CA = np.zeros([self.iteraciones + 1, self.vector])
+
+        # give position to cars
+        self.pos_autos = random.sample(range(self.vector), self.numautos)
+        self.pos_autos.sort()
+
+        # give velocity to cars
+        for auto in range(self.numautos):
+            self.list_autos.append(Auto(auto, self.pos_auto[auto], random.randint(0, self.v_max)))
+
 
         if self.inital_state == 1:
             middle_first_v = self.vector//2
