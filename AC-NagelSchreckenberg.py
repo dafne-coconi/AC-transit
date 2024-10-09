@@ -1,15 +1,15 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-class Rules:
+class Auto:
     """This class
     :param value: rule"""
 
-    def __init__(self, rule_num, vecinos):
-        self.rule_num = rule_num
-        self.list_pattern = list()
-        self.list_rule = list()
-        self.vecinos = vecinos
+    def __init__(self, posicion, velocidad, distraccion):
+        self.posicion = posicion
+        self.velocidad = list()
+        self.distraccion = list()
+        self.vecinos = list()
 
     def decimal_to_binary(self, decimal, bit):
         
@@ -36,14 +36,15 @@ class Automata:
     Class Automata
     :param value: rule
     """
-    def __init__(self, vecinos, vector, iteraciones, regla, inital_state):
-        self.name = f'Linear_CA_{regla}'
-        #self.vecinos = vecinos
+    def __init__(self, vector, numautos, iteraciones, inital_state, tupla_distraccion):
+        self.name = f'Linear_CA_transito'
         self.vector = vector
+        self.numautos = numautos
         self.iteraciones = iteraciones
         self.estados = 2
         self.matrix_CA = np.array([])
         self.inital_state = inital_state
+        self.tupla_distraccion = tupla_distraccion
 
     def create_CA(self):
         # Create matrix for CA with a single cell at the middle
