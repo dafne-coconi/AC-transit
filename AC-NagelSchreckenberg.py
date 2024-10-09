@@ -38,10 +38,9 @@ class Automata:
     """
     def __init__(self, vecinos, vector, iteraciones, regla, inital_state):
         self.name = f'Linear_CA_{regla}'
-        self.vecinos = vecinos
+        #self.vecinos = vecinos
         self.vector = vector
         self.iteraciones = iteraciones
-        self.regla = regla
         self.estados = 2
         self.matrix_CA = np.array([])
         self.inital_state = inital_state
