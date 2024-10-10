@@ -9,7 +9,7 @@ class Auto:
     def __init__(self, num, posicion, velocidad, distraccion):
         self.name = f'A{num}'
         self.posicion = posicion
-        self.velocidad = list()
+        self.velocidad = velocidad
         self.distraccion = list()
         self.vecinos = list()
 
@@ -52,6 +52,12 @@ class Automata:
         self.tupla_distraccion = tupla_distraccion
         self.v_max = v_max
 
+    def move_auto(self, auto):
+        v_actual = auto.velocidad
+        if auto.velocidad <  self.v_max:
+            v_actual = min(auto.velocidad + 1, self.v_max)
+        if v_actual >= 
+
     def create_CA(self):
         # Create matrix for CA with a single cell at the middle
         self.matrix_CA = np.zeros([self.iteraciones + 1, self.vector])
@@ -60,9 +66,10 @@ class Automata:
         self.pos_autos = random.sample(range(self.vector), self.numautos)
         self.pos_autos.sort()
 
-        # give velocity to cars
+        # give velocity to cars and distraction
         for auto in range(self.numautos):
-            self.list_autos.append(Auto(auto, self.pos_auto[auto], random.randint(0, self.v_max)))
+            v = random.randint(0, self.v_max)
+            self.list_autos.append(Auto(auto, self.pos_auto[auto], v, random.random()))
 
 
         if self.inital_state == 1:
