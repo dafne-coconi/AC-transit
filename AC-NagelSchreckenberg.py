@@ -10,8 +10,9 @@ class Auto:
         self.name = f'A{num}'
         self.posicion = posicion
         self.velocidad = velocidad
-        self.distraccion = list()
+        self.distraccion = distraccion
         self.vecinos = list()
+        self.num_auto = num
 
     def decimal_to_binary(self, decimal, bit):
         
@@ -53,10 +54,29 @@ class Automata:
         self.v_max = v_max
 
     def move_auto(self, auto):
+        # ---- aceleracion ----------
         v_actual = auto.velocidad
         if auto.velocidad <  self.v_max:
             v_actual = min(auto.velocidad + 1, self.v_max)
-        if v_actual >= 
+        
+        # ---- distancia segura -----
+        # Calcular distancia del auto
+        if self.pos_auto[auto.num + 1] > self.pos_auto[auto.num]:
+            distancia_auto = self.pos_auto[auto.num + 1] - self.pos_auto[auto.num]
+        else:
+            distancia_auto = self.vector - self.pos_auto[auto.num] + self.pos_auto[auto.num + 1]
+        
+        if v_actual >= distancia_auto:
+            v_actual = min(v_actual, distancia_auto)
+
+        #----- aletoriedad -------
+        if random.random() >= auto.distraccion:
+            if (v_actual > 0):
+                v_actual = max(v_actual - 1, 0)
+        
+        auto.velocidad = v_actual
+
+        return v_actual
 
     def create_CA(self):
         # Create matrix for CA with a single cell at the middle
@@ -69,42 +89,23 @@ class Automata:
         # give velocity to cars and distraction
         for auto in range(self.numautos):
             v = random.randint(0, self.v_max)
-            self.list_autos.append(Auto(auto, self.pos_auto[auto], v, random.random()))
+            new_auto = Auto(auto, self.pos_auto[auto], v, random.random())
+            self.list_autos.append(new_auto)
 
-
-        if self.inital_state == 1:
-            middle_first_v = self.vector//2
-            self.matrix_CA[0][middle_first_v] = 1
-        else:
-            self.matrix_CA[0] = np.random.randint(0, 2, self.vector)
-        
-        rule = Rules(self.regla, self.vecinos)
-        rule.rule_called()
-        rule.pattern()
-
-        #print(f'first CA {self.matrix_CA}')
-        
+        # actualizar autos        
         for it in range(self.iteraciones):
-            for cell in range(self.vector):
+            for car in range(self.list_autos):
+                car.velocidad = self.move_auto(car)
+                if car.posicion + car.velocidad > self.vector:
+                    car.posicion = self.vector - car.velocidad
+                else: 
+                    car.posicion = car.posicion + car.velocidad
+                
+                color_celda = 1 - (car.velocidad / self.v_max)
 
-                initial_cell = cell - self.vecinos + 1
-                central_cell = initial_cell + (self.vecinos)//2
-                #print(f'central {central_cell}')
-                if cell < 2:
-                    binary = np.concatenate((self.matrix_CA[it][initial_cell:], self.matrix_CA[it][:cell+1]))
-                else:
-                    binary = self.matrix_CA[it][initial_cell:initial_cell+self.vecinos]
+                # Change cell
+                self.matrix_CA[it+1][car.posicion] = color_celda
 
-                bin_to_dec = int(''.join(map(lambda binary: str(int(binary)), binary)), 2)
-                #print(f'binary {binary}, dec {bin_to_dec}')
-
-                current_pattern = rule.list_rule[-bin_to_dec-1]
-
-                # Change central cell
-                self.matrix_CA[it+1][central_cell] = current_pattern
-                #print(f'matrix \n{self.matrix_CA}')
-
-        #print(f'IS {self.inital_state}')
         return self.matrix_CA
     
     def __repr__(self):
