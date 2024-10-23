@@ -8,7 +8,7 @@ The cars appear to be boxes in different gray colors, the saturation of gray ind
 ![alt text](https://github.com/dafne-coconi/AC-transit/blob/master/images/CA_25.png?raw=true)
 
 ## Automata vector 40, iterations 40, number of cars 8, tuple of distraction (0.2, 0.3)
-![alt text](https://github.com/dafne-coconi/AC-transit/blob/master/images/CA_40.png?raw=true)0
+![alt text](https://github.com/dafne-coconi/AC-transit/blob/master/images/CA_40.png?raw=true)
 
 ## Automata vector 50, iterations 55, number of cars 10, tuple of distraction (0.2, 0.3)
-![alt text](https://github.com/dafne-coconi/AC-transit/blob/master/images/CA_55.png?raw=true)0
+![alt text](https://github.com/dafne-coconi/AC-transit/blob/master/images/CA_50.png?raw=true)
