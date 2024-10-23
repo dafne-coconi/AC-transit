@@ -13,11 +13,11 @@ iteraciones = int(sys.argv[3])
 tupla_distraccion = int(sys.argv[4])
 v_max = int(sys.argv[5])
 """
-vector = 40
-numautos = 8
-iteraciones = 40
-tupla_distraccion = (0.2,0.8)
-v_max = 4
+vector = int(input("int value for lenght of Vector "))
+numautos = int(input("int value for # of cars "))
+iteraciones = int(input("int value for number of iterations "))
+tupla_distraccion = tuple(input("Tuple for distraction ej. (0.2,0.8) "))
+v_max = int(input("int value max velocity "))
 
 print(f"Vector: {vector}")
 print(f"Num autos: {numautos}")
